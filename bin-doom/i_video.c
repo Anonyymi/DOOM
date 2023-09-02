@@ -357,10 +357,11 @@ void I_FinishUpdate (void)
         for (unsigned int x = 0; x < X_width * BYTES_PER_PIXEL; x += BYTES_PER_PIXEL)
         {
             unsigned int x_ = x / BYTES_PER_PIXEL;
+
             // NOTE: assume at least 3 bytes per pixel
-            image->data[x + y * X_width + 0] = screens[0][x_ + y_ * X_width];
-            image->data[x + y * X_width + 1] = screens[0][x_ + y_ * X_width];
-            image->data[x + y * X_width + 2] = screens[0][x_ + y_ * X_width];
+            image->data[x + y * X_width + 0] = screens[0][x_ + y_ * X_width] + 0;
+            image->data[x + y * X_width + 1] = screens[0][x_ + y_ * X_width] + 1;
+            image->data[x + y * X_width + 2] = screens[0][x_ + y_ * X_width] + 2;
         }
     }
 
@@ -421,43 +422,34 @@ static XColor	colors[256];
 
 void UploadNewPalette(Colormap cmap, byte *palette)
 {
-
     register int	i;
     register int	c;
     static boolean	firstcall = true;
 
-#ifdef __cplusplus
-    if (X_visualinfo.c_class == PseudoColor && X_visualinfo.depth == 8)
-#else
-    if (X_visualinfo.class == PseudoColor && X_visualinfo.depth == 8)
-#endif
+    // initialize the colormap
+    if (firstcall)
     {
-	    // initialize the colormap
-	    if (firstcall)
-	    {
-		firstcall = false;
+        firstcall = false;
         for (i=0 ; i<256 ; i++)
         {
-		    colors[i].pixel = i;
-		    colors[i].flags = DoRed|DoGreen|DoBlue;
-		}
-	    }
+            colors[i].pixel = i;
+            colors[i].flags = DoRed|DoGreen|DoBlue;
+        }
+    }
 
-	    // set the X colormap entries
-        for (i=0 ; i<256 ; i++)
-	    {
-		c = gammatable[usegamma][*palette++];
-		colors[i].red = (c<<8) + c;
-		c = gammatable[usegamma][*palette++];
-		colors[i].green = (c<<8) + c;
-		c = gammatable[usegamma][*palette++];
-		colors[i].blue = (c<<8) + c;
-	    }
+    // set the X colormap entries
+    for (i=0 ; i<256 ; i++)
+    {
+        c = gammatable[usegamma][*palette++];
+        colors[i].blue = (c<<8) + c;
+        c = gammatable[usegamma][*palette++];
+        colors[i].green = (c<<8) + c;
+        c = gammatable[usegamma][*palette++];
+        colors[i].red = (c<<8) + c;
+    }
 
-	    // store the colors to the current colormap
-        XStoreColors(X_display, cmap, colors, 256);
-
-	}
+    // store the colors to the current colormap
+    XStoreColors(X_display, cmap, colors, 256);
 }
 
 //
@@ -481,7 +473,7 @@ void grabsharedmemory(int size)
 
   int			key = ('d'<<24) | ('o'<<16) | ('o'<<8) | 'm';
   struct shmid_ds	shminfo;
-  int			minsize = 320*200*BYTES_PER_PIXEL;
+  int			minsize = SCREENWIDTH*SCREENHEIGHT*BYTES_PER_PIXEL;
   int			id;
   int			rc;
   // UNUSED int done=0;
