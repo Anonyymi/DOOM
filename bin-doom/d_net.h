@@ -46,7 +46,7 @@
 
 
 // Networking and tick handling related.
-#define BACKUPTICS		12
+#define BACKUPTICS		64
 
 typedef enum
 {

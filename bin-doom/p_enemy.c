@@ -264,7 +264,7 @@ boolean P_CheckMissileRange (mobj_t* actor)
 fixed_t	xspeed[8] = {FRACUNIT,47000,0,-47000,-FRACUNIT,-47000,0,47000};
 fixed_t yspeed[8] = {0,47000,FRACUNIT,47000,0,-47000,-FRACUNIT,-47000};
 
-#define MAXSPECIALCROSS	8
+#define MAXSPECIALCROSS	20
 
 extern	line_t*	spechit[MAXSPECIALCROSS];
 extern	int	numspechit;
@@ -313,7 +313,7 @@ boolean P_Move (mobj_t*	actor)
 	actor->movedir = DI_NODIR;
 	good = false;
 	while (numspechit--)
-	{
+    {
 	    ld = spechit[numspechit];
 	    // if the special is not a door
 	    // that can be opened,

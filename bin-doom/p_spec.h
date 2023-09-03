@@ -303,7 +303,7 @@ typedef struct
 
 #define PLATWAIT		3
 #define PLATSPEED		FRACUNIT
-#define MAXPLATS		30
+#define MAXPLATS		128
 
 
 extern plat_t*	activeplats[MAXPLATS];
@@ -515,7 +515,7 @@ typedef struct
 
 #define CEILSPEED		FRACUNIT
 #define CEILWAIT		150
-#define MAXCEILINGS		30
+#define MAXCEILINGS		128
 
 extern ceiling_t*	activeceilings[MAXCEILINGS];
 
