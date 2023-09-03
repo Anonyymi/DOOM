@@ -4,20 +4,21 @@ add_executable(bin-doom
 )
 target_compile_features(bin-doom PUBLIC c_std_99)
 target_compile_options(bin-doom PUBLIC
-  -m32
   -g
   -Wall
   -DNORMALUNIX
   -DLINUX
 )
-target_link_options(bin-doom PUBLIC
-  -m32
+find_package(SDL2 REQUIRED)
+target_include_directories(bin-doom PUBLIC
+  ${SDL2_INCLUDE_DIRS}
+  ${CMAKE_CURRENT_SOURCE_DIR}
 )
-target_include_directories(bin-doom PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 target_link_libraries(bin-doom PUBLIC
   Xext
   X11
   nsl
   m
+  ${SDL2_LIBRARIES}
 )
 FILE(COPY ${DOOM_LINUX_IWADS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
