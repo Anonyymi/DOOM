@@ -115,7 +115,7 @@ void I_FinishUpdate(void)
 
 void I_ReadScreen(byte* scr)
 {
-    
+    memcpy(scr, screens[0], SCREENWIDTH * SCREENHEIGHT);
 }
 
 int sdl_keycode_to_doom_keycode(SDL_KeyCode code)
