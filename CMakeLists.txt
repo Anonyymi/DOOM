@@ -5,6 +5,7 @@ set(CMAKE_CXX_COMPILER "g++")
 project(DOOM)
 
 FILE(GLOB DOOM_LINUX_IWADS "resources/iwad/*.wad")
+FILE(GLOB DOOM_LINUX_PWADS "resources/pwad/*.wad")
 
 add_subdirectory(bin-doom)
 add_subdirectory(bin-sndserv)
