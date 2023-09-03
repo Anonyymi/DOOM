@@ -15,9 +15,6 @@ target_include_directories(bin-doom PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}
 )
 target_link_libraries(bin-doom PUBLIC
-  Xext
-  X11
-  nsl
   m
   ${SDL2_LIBRARIES}
 )
