@@ -634,8 +634,9 @@ void S_SetSfxVolume(int volume)
     if (volume < 0 || volume > 127)
 	I_Error("Attempt to set sfx volume at %d", volume);
 
+    I_SetSfxVolume(127);
+    I_SetSfxVolume(volume);
     snd_SfxVolume = volume;
-
 }
 
 //

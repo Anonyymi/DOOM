@@ -39,6 +39,9 @@ int I_SoundIsPlaying(int handle);
 //  and pitch of a sound channel.
 void I_UpdateSoundParams(int handle, int vol, int sep, int pitch);
 
+// Volume.
+void I_SetSfxVolume(int volume);
+
 
 //
 //  MUSIC I/O
