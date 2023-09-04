@@ -142,7 +142,7 @@ int I_RegisterSong(void *data)
 
 void I_PlaySong(int handle, int looping)
 {
-    Mix_PlayMusic(mus, looping);
+    Mix_PlayMusic(mus, looping > 0 ? -1 : 1);
 }
 
 void I_StopSong(int handle)
