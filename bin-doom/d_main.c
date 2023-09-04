@@ -38,6 +38,7 @@
 #include <fcntl.h>
 #endif
 
+#include <SDL2/SDL.h>
 
 #include "doomdef.h"
 #include "doomstat.h"
@@ -360,6 +361,11 @@ void D_DoomLoop (void)
 	sprintf (filename,"debug%i.txt",consoleplayer);
 	printf ("debug output to: %s\n",filename);
 	debugfile = fopen (filename,"w");
+    }
+
+    if (SDL_Init(0) != 0)
+    {
+        I_Error("error initializing SDL2");
     }
 	
     I_InitGraphics ();

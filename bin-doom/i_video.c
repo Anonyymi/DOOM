@@ -13,9 +13,9 @@ uint32_t palette[256];
 
 void I_InitGraphics(void)
 {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+    if (SDL_InitSubSystem(SDL_INIT_VIDEO) != 0)
     {
-        I_Error("error initializing SDL2");
+        I_Error("error initializing SDL_INIT_VIDEO");
     }
 
     window = SDL_CreateWindow(

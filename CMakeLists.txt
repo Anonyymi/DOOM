@@ -4,8 +4,9 @@ set(CMAKE_CXX_COMPILER "g++")
 
 project(DOOM)
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 FILE(GLOB DOOM_LINUX_IWADS "resources/iwad/*.wad")
 FILE(GLOB DOOM_LINUX_PWADS "resources/pwad/*.wad")
 
 add_subdirectory(bin-doom)
-add_subdirectory(bin-sndserv)
