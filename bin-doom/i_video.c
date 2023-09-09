@@ -122,10 +122,14 @@ int sdl_keycode_to_doom_keycode(SDL_KeyCode code)
 {
     switch (code)
     {
+        case SDLK_w:
         case SDLK_UP: return KEY_UPARROW;
+        case SDLK_s:
         case SDLK_DOWN: return KEY_DOWNARROW;
         case SDLK_LEFT: return KEY_LEFTARROW;
         case SDLK_RIGHT: return KEY_RIGHTARROW;
+        case SDLK_a: return (int)',';
+        case SDLK_d: return (int)'.';
         case SDLK_LCTRL:
         case SDLK_RCTRL:
             return KEY_RCTRL;
