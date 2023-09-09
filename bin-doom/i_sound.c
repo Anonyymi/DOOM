@@ -282,13 +282,13 @@ int I_RegisterSong(void *data)
     SDL_RWops * buf = SDL_RWFromMem(midi_data, midi_len);
     if (buf == NULL)
     {
-        I_Error("failed to load MIDI data into memory");
+        I_Error("failed to load MIDI data into memory: %s", SDL_GetError());
     }
 
     mus = Mix_LoadMUSType_RW(buf, MUS_MID, SDL_TRUE);
     if (mus == NULL)
     {
-        I_Error("failed to load MIDI data into SDL2_mixer");
+        I_Error("failed to load MIDI data into SDL2_mixer: %s", SDL_GetError());
     }
 
     free(midi_data);
