@@ -1,5 +1,10 @@
 #include "i_video.h"
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_events.h>
+#include <SDL2/SDL_keycode.h>
+#include <SDL2/SDL_mouse.h>
+#include <SDL2/SDL_video.h>
+#include "d_event.h"
 #include "doomdef.h"
 #include "i_system.h"
 #include "v_video.h"
@@ -58,10 +63,13 @@ void I_InitGraphics(void)
     {
         I_Error("error allocating framebuffer");
     }
+    
+    SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 void I_ShutdownGraphics(void)
 {
+    SDL_SetRelativeMouseMode(SDL_FALSE);
     free(framebuffer);
     SDL_DestroyTexture(texture);
     SDL_DestroyRenderer(renderer);
@@ -178,6 +186,23 @@ void I_GetEvent(void)
                 doom_event.data1 = sdl_keycode_to_doom_keycode(event.key.keysym.sym);
                 D_PostEvent(&doom_event);
                 break;
+            case SDL_MOUSEMOTION:
+                doom_event.type = ev_mouse;
+                doom_event.data1 = 0;
+                doom_event.data2 = event.motion.xrel * 10;
+                doom_event.data3 = 0;
+                D_PostEvent(&doom_event);
+                break;
+            case SDL_MOUSEBUTTONDOWN:
+                doom_event.type = ev_keydown;
+                doom_event.data1 = event.button.button == 1 ? KEY_RCTRL : 0;
+                D_PostEvent(&doom_event);
+                break;
+            case SDL_MOUSEBUTTONUP:
+                doom_event.type = ev_keyup;
+                doom_event.data1 = event.button.button == 1 ? KEY_RCTRL : 0;
+                D_PostEvent(&doom_event);
+                break;
         }
     }
 }
@@ -190,4 +215,9 @@ void I_StartFrame(void)
 void I_StartTic(void)
 {
     
+}
+
+void I_SetFullScreen(boolean enabled)
+{
+    SDL_SetWindowFullscreen(window, enabled ? SDL_WINDOW_FULLSCREEN_DESKTOP : 0);
 }
