@@ -4,6 +4,7 @@
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_video.h>
+#include <stdint.h>
 #include "d_event.h"
 #include "doomdef.h"
 #include "i_system.h"
@@ -182,6 +183,13 @@ void I_GetEvent(void)
                 D_PostEvent(&doom_event);
                 break;
             case SDL_KEYUP:
+                if (event.key.keysym.sym == SDLK_f)
+                {
+                    uint32_t wflags = SDL_GetWindowFlags(window);
+                    I_SetFullScreen(wflags & SDL_WINDOW_FULLSCREEN ? false : true);
+                    return;
+                }
+
                 doom_event.type = ev_keyup;
                 doom_event.data1 = sdl_keycode_to_doom_keycode(event.key.keysym.sym);
                 D_PostEvent(&doom_event);
