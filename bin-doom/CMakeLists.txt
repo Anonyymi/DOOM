@@ -2,7 +2,7 @@ FILE(GLOB DOOM_LINUX_SOURCES *.c)
 add_executable(bin-doom
   ${DOOM_LINUX_SOURCES}
 )
-target_compile_features(bin-doom PUBLIC c_std_99)
+set_target_properties(bin-doom PROPERTIES C_STANDARD 99 C_STANDARD_REQUIRED ON C_EXTENSIONS ON)
 target_compile_options(bin-doom PUBLIC
   -g
   -Wall

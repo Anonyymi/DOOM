@@ -29,6 +29,8 @@
 #define	FGCOLOR		8
 
 
+#include <stdint.h>
+
 #ifdef NORMALUNIX
 #include <stdio.h>
 #include <stdlib.h>
@@ -567,14 +569,14 @@ void D_AddFile (char *file)
 void IdentifyVersion (void)
 {
 
-    char*	doom1wad[1024];
-    char*	doomwad[1024];
-    char*	doomuwad[1024];
-    char*	doom2wad[1024];
+    char	doom1wad[1024];
+    char	doomwad[1024];
+    char	doomuwad[1024];
+    char	doom2wad[1024];
 
-    char*	doom2fwad[1024];
-    char*	plutoniawad[1024];
-    char*	tntwad[1024];
+    char	doom2fwad[1024];
+    char	plutoniawad[1024];
+    char	tntwad[1024];
 
 #ifdef NORMALUNIX
     char *home;
@@ -1115,7 +1117,7 @@ void D_DoomMain (void)
 	// for statistics driver
 	extern  void*	statcopy;                            
 
-	statcopy = (void*)atoi(myargv[p+1]);
+	statcopy = (void*)(intptr_t)atoi(myargv[p+1]);
 	printf ("External statistics registered.\n");
     }
     

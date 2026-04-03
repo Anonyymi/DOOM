@@ -23,6 +23,7 @@
 #ifndef __D_NET__
 #define __D_NET__
 
+#include <stdint.h>
 #include "d_player.h"
 
 
@@ -39,7 +40,7 @@
 //  be transmitted.
 //
 
-#define DOOMCOM_ID		0x12345678l
+#define DOOMCOM_ID		0x12345678
 
 // Max computers/players in a game.
 #define MAXNETNODES		8
@@ -79,7 +80,7 @@ typedef struct
 typedef struct
 {
     // Supposed to be DOOMCOM_ID?
-    long		id;
+    int32_t		id;
     
     // DOOM executes an int to execute commands.
     short		intnum;		

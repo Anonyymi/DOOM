@@ -34,6 +34,8 @@
 #if !defined( MMUS2MID_H )
 #define MMUS2MID_H
 
+#include <stdint.h>
+
 // error codes
 
 typedef enum
@@ -52,8 +54,7 @@ typedef enum
 // some names for integers of various sizes, all unsigned
 typedef unsigned char UBYTE;  // a one-byte int
 typedef unsigned short UWORD; // a two-byte int
-// proff: changed from unsigned int to unsigned long to avoid warning
-typedef unsigned long ULONG;   // a four-byte int (assumes int 4 bytes)
+typedef uint32_t ULONG;       // a four-byte int
 
 #ifndef MSDOS /* proff: This is from allegro.h */
 #define MIDI_TRACKS           32
