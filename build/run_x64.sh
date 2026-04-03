@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
 
-CFLAGS=-m64 CXXFLAGS=-m64 cmake ../
+CFLAGS=-m64 CXXFLAGS=-m64 -DCMAKE_BUILD_TYPE=Release cmake ../
 make -j4
 (cd ./bin-doom/; ./bin-doom)
