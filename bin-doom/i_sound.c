@@ -98,14 +98,15 @@ void I_InitSound()
 {
     if (SDL_InitSubSystem(SDL_INIT_AUDIO) != 0)
     {
-        I_Error("error initializing SDL_INIT_AUDIO");
+        I_Error("error initializing SDL_INIT_AUDIO: %s", SDL_GetError());
     }
 
-    if (Mix_Init(MIX_INIT_MID) != 0)
+    Mix_Init(MIX_INIT_MID);
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 2048) != 0)
     {
-        Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 0);
+        I_Error("error opening audio device: %s", SDL_GetError());
     }
-
 
     // Initialize external data (all sounds) at start, keep static.
     fprintf( stderr, "I_InitSound: ");
@@ -122,7 +123,7 @@ void I_InitSound()
         {
           // Previously loaded already?
           S_sfx[i].data = S_sfx[i].link->data;
-          lengths[i] = lengths[(S_sfx[i].link - S_sfx)/sizeof(sfxinfo_t)];
+          lengths[i] = lengths[S_sfx[i].link - S_sfx];
         }
 
         SDL_AudioSpec dst_spec;
@@ -230,15 +231,7 @@ Mix_Music * mus;
 
 void I_InitMusic(void)
 {
-    if (SDL_InitSubSystem(SDL_INIT_AUDIO) != 0)
-    {
-        I_Error("error initializing SDL_INIT_AUDIO");
-    }
-
-    if (Mix_Init(MIX_INIT_MID) != 0)
-    {
-        Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 0);
-    }
+    // no need because I_InitSound does initialization
 }
 
 void I_ShutdownMusic(void)
