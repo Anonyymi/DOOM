@@ -92,6 +92,7 @@ STlib_drawNum
 ( st_number_t*	n,
   boolean	refresh )
 {
+    return;
 
     int		numdigits = n->width;
     int		num = *n->num;
@@ -213,6 +214,8 @@ STlib_updateMultIcon
 ( st_multicon_t*	mi,
   boolean		refresh )
 {
+    return;
+    
     int			w;
     int			h;
     int			x;
@@ -265,6 +268,8 @@ STlib_updateBinIcon
 ( st_binicon_t*		bi,
   boolean		refresh )
 {
+    return;
+
     int			x;
     int			y;
     int			w;

@@ -83,8 +83,7 @@ rcsid[] = "$Id: st_stuff.c,v 1.6 1997/02/03 22:45:13 b1 Exp $";
 #define ST_TOGGLECHAT		KEY_ENTER
 
 // Location of status bar
-#define ST_X				0
-#define ST_X2				104
+#define ST_X				(SCREENWIDTH - ST_WIDTH) / 2
 
 #define ST_FX  			143
 #define ST_FY  			169
