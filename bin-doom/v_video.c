@@ -40,7 +40,7 @@ rcsid[] = "$Id: v_video.c,v 1.5 1997/02/03 22:45:13 b1 Exp $";
 #include "v_video.h"
 
 
-// Each screen is [SCREENWIDTH*SCREENHEIGHT]; 
+// Each screen is [RESOLUTION_X*RESOLUTION_Y]; 
 byte*				screens[5];	
  
 int				dirtybox[4]; 
@@ -170,12 +170,12 @@ V_CopyRect
 	 
 #ifdef RANGECHECK 
     if (srcx<0
-	||srcx+width >SCREENWIDTH
+	||srcx+width >RESOLUTION_X
 	|| srcy<0
-	|| srcy+height>SCREENHEIGHT 
-	||destx<0||destx+width >SCREENWIDTH
+	|| srcy+height>RESOLUTION_Y 
+	||destx<0||destx+width >RESOLUTION_X
 	|| desty<0
-	|| desty+height>SCREENHEIGHT 
+	|| desty+height>RESOLUTION_Y 
 	|| (unsigned)srcscrn>4
 	|| (unsigned)destscrn>4)
     {
@@ -184,14 +184,14 @@ V_CopyRect
 #endif 
     V_MarkRect (destx, desty, width, height); 
 	 
-    src = screens[srcscrn]+SCREENWIDTH*srcy+srcx; 
-    dest = screens[destscrn]+SCREENWIDTH*desty+destx; 
+    src = screens[srcscrn]+RESOLUTION_X*srcy+srcx; 
+    dest = screens[destscrn]+RESOLUTION_X*desty+destx; 
 
     for ( ; height>0 ; height--) 
     { 
 	memcpy (dest, src, width); 
-	src += SCREENWIDTH; 
-	dest += SCREENWIDTH; 
+	src += RESOLUTION_X; 
+	dest += RESOLUTION_X; 
     } 
 } 
  
@@ -220,9 +220,9 @@ V_DrawPatch
     x -= SHORT(patch->leftoffset); 
 #ifdef RANGECHECK 
     if (x<0
-	||x+SHORT(patch->width) >SCREENWIDTH
+	||x+SHORT(patch->width) >RESOLUTION_X
 	|| y<0
-	|| y+SHORT(patch->height)>SCREENHEIGHT 
+	|| y+SHORT(patch->height)>RESOLUTION_Y 
 	|| (unsigned)scrn>4)
     {
       fprintf( stderr, "Patch at %d,%d exceeds LFB\n", x,y );
@@ -236,7 +236,7 @@ V_DrawPatch
 	V_MarkRect (x, y, SHORT(patch->width), SHORT(patch->height)); 
 
     col = 0; 
-    desttop = screens[scrn]+y*SCREENWIDTH+x; 
+    desttop = screens[scrn]+y*RESOLUTION_X+x; 
 	 
     w = SHORT(patch->width); 
 
@@ -248,13 +248,13 @@ V_DrawPatch
 	while (column->topdelta != 0xff ) 
 	{ 
 	    source = (byte *)column + 3; 
-	    dest = desttop + column->topdelta*SCREENWIDTH; 
+	    dest = desttop + column->topdelta*RESOLUTION_X; 
 	    count = column->length; 
 			 
 	    while (count--) 
 	    { 
 		*dest = *source++; 
-		dest += SCREENWIDTH; 
+		dest += RESOLUTION_X; 
 	    } 
 	    column = (column_t *)(  (byte *)column + column->length 
 				    + 4 ); 
@@ -287,9 +287,9 @@ V_DrawPatchFlipped
     x -= SHORT(patch->leftoffset); 
 #ifdef RANGECHECK 
     if (x<0
-	||x+SHORT(patch->width) >SCREENWIDTH
+	||x+SHORT(patch->width) >RESOLUTION_X
 	|| y<0
-	|| y+SHORT(patch->height)>SCREENHEIGHT 
+	|| y+SHORT(patch->height)>RESOLUTION_Y 
 	|| (unsigned)scrn>4)
     {
       fprintf( stderr, "Patch origin %d,%d exceeds LFB\n", x,y );
@@ -301,7 +301,7 @@ V_DrawPatchFlipped
 	V_MarkRect (x, y, SHORT(patch->width), SHORT(patch->height)); 
 
     col = 0; 
-    desttop = screens[scrn]+y*SCREENWIDTH+x; 
+    desttop = screens[scrn]+y*RESOLUTION_X+x; 
 	 
     w = SHORT(patch->width); 
 
@@ -313,13 +313,13 @@ V_DrawPatchFlipped
 	while (column->topdelta != 0xff ) 
 	{ 
 	    source = (byte *)column + 3; 
-	    dest = desttop + column->topdelta*SCREENWIDTH; 
+	    dest = desttop + column->topdelta*RESOLUTION_X; 
 	    count = column->length; 
 			 
 	    while (count--) 
 	    { 
 		*dest = *source++; 
-		dest += SCREENWIDTH; 
+		dest += RESOLUTION_X; 
 	    } 
 	    column = (column_t *)(  (byte *)column + column->length 
 				    + 4 ); 
@@ -414,9 +414,9 @@ V_DrawBlock
 	 
 #ifdef RANGECHECK 
     if (x<0
-	||x+width >SCREENWIDTH
+	||x+width >RESOLUTION_X
 	|| y<0
-	|| y+height>SCREENHEIGHT 
+	|| y+height>RESOLUTION_Y 
 	|| (unsigned)scrn>4 )
     {
 	I_Error ("Bad V_DrawBlock");
@@ -425,13 +425,13 @@ V_DrawBlock
  
     V_MarkRect (x, y, width, height); 
  
-    dest = screens[scrn] + y*SCREENWIDTH+x; 
+    dest = screens[scrn] + y*RESOLUTION_X+x; 
 
     while (height--) 
     { 
 	memcpy (dest, src, width); 
 	src += width; 
-	dest += SCREENWIDTH; 
+	dest += RESOLUTION_X; 
     } 
 } 
  
@@ -454,21 +454,21 @@ V_GetBlock
 	 
 #ifdef RANGECHECK 
     if (x<0
-	||x+width >SCREENWIDTH
+	||x+width >RESOLUTION_X
 	|| y<0
-	|| y+height>SCREENHEIGHT 
+	|| y+height>RESOLUTION_Y 
 	|| (unsigned)scrn>4 )
     {
 	I_Error ("Bad V_DrawBlock");
     }
 #endif 
  
-    src = screens[scrn] + y*SCREENWIDTH+x; 
+    src = screens[scrn] + y*RESOLUTION_X+x; 
 
     while (height--) 
     { 
 	memcpy (dest, src, width); 
-	src += SCREENWIDTH; 
+	src += RESOLUTION_X; 
 	dest += width; 
     } 
 } 
@@ -486,8 +486,8 @@ void V_Init (void)
 		
     // stick these in low dos memory on PCs
 
-    base = I_AllocLow (SCREENWIDTH*SCREENHEIGHT*4);
+    base = I_AllocLow (RESOLUTION_X*RESOLUTION_Y*4);
 
     for (i=0 ; i<4 ; i++)
-	screens[i] = base + i*SCREENWIDTH*SCREENHEIGHT;
+	screens[i] = base + i*RESOLUTION_X*RESOLUTION_Y;
 }

@@ -219,8 +219,8 @@ static int 	grid = 0;
 static int 	leveljuststarted = 1; 	// kluge until AM_LevelInit() is called
 
 boolean    	automapactive = false;
-static int 	finit_width = SCREENWIDTH;
-static int 	finit_height = SCREENHEIGHT - 32;
+static int 	finit_width = RESOLUTION_X;
+static int 	finit_height = RESOLUTION_Y - 32;
 
 // location of window on screen
 static int 	f_x;
@@ -290,7 +290,7 @@ static cheatseq_t cheat_amap = { cheat_amap_seq, 0 };
 static boolean stopped = true;
 
 extern boolean viewactive;
-//extern byte screens[][SCREENWIDTH*SCREENHEIGHT];
+//extern byte screens[][RESOLUTION_X*RESOLUTION_Y];
 
 
 

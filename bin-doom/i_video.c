@@ -28,8 +28,8 @@ void I_InitGraphics(void)
         "DOOM",
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
-        SCREENWIDTH,
-        SCREENHEIGHT,
+        RESOLUTION_X,
+        RESOLUTION_Y,
         SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
     );
 
@@ -49,8 +49,8 @@ void I_InitGraphics(void)
         renderer,
         SDL_PIXELFORMAT_ARGB8888,
         SDL_TEXTUREACCESS_STATIC,
-        SCREENWIDTH,
-        SCREENHEIGHT
+        RESOLUTION_X,
+        RESOLUTION_Y
     );
 
     if (texture == NULL)
@@ -58,7 +58,7 @@ void I_InitGraphics(void)
         I_Error("error creating SDL_Texture");
     }
 
-    framebuffer = malloc(SCREENWIDTH * SCREENHEIGHT * sizeof(uint32_t));
+    framebuffer = malloc(RESOLUTION_X * RESOLUTION_Y * sizeof(uint32_t));
 
     if (framebuffer == NULL)
     {
@@ -102,11 +102,11 @@ void I_FinishUpdate(void)
         return;
     }
 
-    for (unsigned int y = 0; y < SCREENHEIGHT; ++y)
+    for (unsigned int y = 0; y < RESOLUTION_Y; ++y)
     {
-        for (unsigned int x = 0; x < SCREENWIDTH; ++x)
+        for (unsigned int x = 0; x < RESOLUTION_X; ++x)
         {
-            framebuffer[x + y * SCREENWIDTH] = palette[screens[0][x + y * SCREENWIDTH]];
+            framebuffer[x + y * RESOLUTION_X] = palette[screens[0][x + y * RESOLUTION_X]];
         }
     }
 
@@ -115,7 +115,7 @@ void I_FinishUpdate(void)
         texture,
         NULL,
         framebuffer,
-        SCREENWIDTH * sizeof(uint32_t)
+        RESOLUTION_X * sizeof(uint32_t)
     );
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, texture, NULL, NULL);
@@ -124,7 +124,7 @@ void I_FinishUpdate(void)
 
 void I_ReadScreen(byte* scr)
 {
-    memcpy(scr, screens[0], SCREENWIDTH * SCREENHEIGHT);
+    memcpy(scr, screens[0], RESOLUTION_X * RESOLUTION_Y);
 }
 
 int sdl_keycode_to_doom_keycode(SDL_KeyCode code)
