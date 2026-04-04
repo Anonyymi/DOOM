@@ -112,8 +112,6 @@ typedef enum
 #define SCREENHEIGHT 200
 //(int)(SCREEN_MUL*BASE_WIDTH*INV_ASPECT_RATIO) //200
 
-#define RESOLUTION_X 640
-#define RESOLUTION_Y 400
 
 
 

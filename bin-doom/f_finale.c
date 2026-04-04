@@ -274,21 +274,21 @@ void F_TextWrite (void)
     src = W_CacheLumpName ( finaleflat , PU_CACHE);
     dest = screens[0];
 	
-    for (y=0 ; y<RESOLUTION_Y ; y++)
+    for (y=0 ; y<SCREENHEIGHT ; y++)
     {
-	for (x=0 ; x<RESOLUTION_X/64 ; x++)
+	for (x=0 ; x<SCREENWIDTH/64 ; x++)
 	{
 	    memcpy (dest, src+((y&63)<<6), 64);
 	    dest += 64;
 	}
-	if (RESOLUTION_X&63)
+	if (SCREENWIDTH&63)
 	{
-	    memcpy (dest, src+((y&63)<<6), RESOLUTION_X&63);
-	    dest += (RESOLUTION_X&63);
+	    memcpy (dest, src+((y&63)<<6), SCREENWIDTH&63);
+	    dest += (SCREENWIDTH&63);
 	}
     }
 
-    V_MarkRect (0, 0, RESOLUTION_X, RESOLUTION_Y);
+    V_MarkRect (0, 0, SCREENWIDTH, SCREENHEIGHT);
     
     // draw some of the text onto the screen
     cx = 10;
@@ -318,7 +318,7 @@ void F_TextWrite (void)
 	}
 		
 	w = SHORT (hu_font[c]->width);
-	if (cx+w > RESOLUTION_X)
+	if (cx+w > SCREENWIDTH)
 	    break;
 	V_DrawPatch(cx, cy, 0, hu_font[c]);
 	cx+=w;
@@ -625,13 +625,13 @@ F_DrawPatchCol
     while (column->topdelta != 0xff )
     {
 	source = (byte *)column + 3;
-	dest = desttop + column->topdelta*RESOLUTION_X;
+	dest = desttop + column->topdelta*SCREENWIDTH;
 	count = column->length;
 		
 	while (count--)
 	{
 	    *dest = *source++;
-	    dest += RESOLUTION_X;
+	    dest += SCREENWIDTH;
 	}
 	column = (column_t *)(  (byte *)column + column->length + 4 );
     }
@@ -654,7 +654,7 @@ void F_BunnyScroll (void)
     p1 = W_CacheLumpName ("PFUB2", PU_LEVEL);
     p2 = W_CacheLumpName ("PFUB1", PU_LEVEL);
 
-    V_MarkRect (0, 0, RESOLUTION_X, RESOLUTION_Y);
+    V_MarkRect (0, 0, SCREENWIDTH, SCREENHEIGHT);
 	
     scrolled = 320 - (finalecount-230)/2;
     if (scrolled > 320)
@@ -662,7 +662,7 @@ void F_BunnyScroll (void)
     if (scrolled < 0)
 	scrolled = 0;
 		
-    for ( x=0 ; x<RESOLUTION_X ; x++)
+    for ( x=0 ; x<SCREENWIDTH ; x++)
     {
 	if (x+scrolled < 320)
 	    F_DrawPatchCol (x, p1, x+scrolled);
@@ -674,8 +674,8 @@ void F_BunnyScroll (void)
 	return;
     if (finalecount < 1180)
     {
-	V_DrawPatch ((RESOLUTION_X-13*8)/2,
-		     (RESOLUTION_Y-8*8)/2,0, W_CacheLumpName ("END0",PU_CACHE));
+	V_DrawPatch ((SCREENWIDTH-13*8)/2,
+		     (SCREENHEIGHT-8*8)/2,0, W_CacheLumpName ("END0",PU_CACHE));
 	laststage = 0;
 	return;
     }
@@ -690,7 +690,7 @@ void F_BunnyScroll (void)
     }
 	
     sprintf (name,"END%i",stage);
-    V_DrawPatch ((RESOLUTION_X-13*8)/2, (RESOLUTION_Y-8*8)/2,0, W_CacheLumpName (name,PU_CACHE));
+    V_DrawPatch ((SCREENWIDTH-13*8)/2, (SCREENHEIGHT-8*8)/2,0, W_CacheLumpName (name,PU_CACHE));
 }
 
 

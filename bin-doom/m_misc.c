@@ -531,7 +531,7 @@ void M_ScreenShot (void)
     
     // save the pcx file
     WritePCXfile (lbmname, linear,
-		  RESOLUTION_X, RESOLUTION_Y,
+		  SCREENWIDTH, SCREENHEIGHT,
 		  W_CacheLumpName ("PLAYPAL",PU_CACHE));
 	
     players[consoleplayer].message = "screen shot";
