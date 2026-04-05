@@ -31,6 +31,7 @@ rcsid[] = "$Id: r_things.c,v 1.5 1997/02/03 16:47:56 b1 Exp $";
 
 
 #include "doomdef.h"
+#include "m_fixed.h"
 #include "m_swap.h"
 
 #include "i_system.h"
@@ -44,7 +45,7 @@ rcsid[] = "$Id: r_things.c,v 1.5 1997/02/03 16:47:56 b1 Exp $";
 
 
 #define MINZ				(FRACUNIT*4)
-#define BASEYCENTER			100
+#define BASEYCENTER			200 - (SCREENHEIGHT / 200 * 100)
 
 //void R_DrawColumn (void);
 //void R_DrawFuzzColumn (void);

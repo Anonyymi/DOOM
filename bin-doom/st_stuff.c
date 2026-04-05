@@ -500,12 +500,13 @@ void ST_refreshBackground(void)
 
     if (st_statusbaron)
     {
+	memset(screens[BG], 0x00, SCREENWIDTH * ST_HEIGHT);
 	V_DrawPatch(ST_X, 0, BG, sbar);
 
 	if (netgame)
 	    V_DrawPatch(ST_FX, 0, BG, faceback);
 
-	V_CopyRect(ST_X, 0, BG, ST_WIDTH, ST_HEIGHT, ST_X, ST_Y, FG);
+	V_CopyRect(0, 0, BG, SCREENWIDTH, ST_HEIGHT, 0, ST_Y, FG);
     }
 
 }
@@ -1267,10 +1268,10 @@ void ST_initData(void)
     st_oldhealth = -1;
 
     for (i=0;i<NUMWEAPONS;i++)
-	oldweaponsowned[i] = plyr->weaponowned[i];
+		oldweaponsowned[i] = plyr->weaponowned[i];
 
     for (i=0;i<3;i++)
-	keyboxes[i] = -1;
+		keyboxes[i] = -1;
 
     STlib_init();
 
@@ -1466,5 +1467,5 @@ void ST_Init (void)
 {
     veryfirsttime = 0;
     ST_loadData();
-    screens[4] = (byte *) Z_Malloc(ST_WIDTH*ST_HEIGHT, PU_STATIC, 0);
+    screens[4] = (byte *) Z_Malloc(SCREENWIDTH*ST_HEIGHT, PU_STATIC, 0);
 }
