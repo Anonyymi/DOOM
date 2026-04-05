@@ -439,7 +439,7 @@ void D_PageTicker (void)
 //
 void D_PageDrawer (void)
 {
-    V_DrawPatch (0,0, 0, W_CacheLumpName(pagename, PU_CACHE));
+    V_DrawPatch (MENUX,MENUY, 0, W_CacheLumpName(pagename, PU_CACHE));
 }
 
 

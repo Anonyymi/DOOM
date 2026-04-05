@@ -92,6 +92,8 @@ typedef enum
 
 #define SCREENWIDTH  1280
 #define SCREENHEIGHT 720
+#define MENUX ((SCREENWIDTH/2)-160)
+#define MENUY ((SCREENHEIGHT/2)-100)
 
 // The maximum number of players, multiplayer/networking.
 #define MAXPLAYERS		4

@@ -81,16 +81,16 @@ rcsid[] = "$Id: wi_stuff.c,v 1.7 1997/02/03 22:45:13 b1 Exp $";
 #define WI_SPACINGY    		33
 
 // SINGPLE-PLAYER STUFF
-#define SP_STATSX		50
-#define SP_STATSY		50
+#define SP_STATSX		MENUX+50
+#define SP_STATSY		MENUY+50
 
 #define SP_TIMEX		16
 #define SP_TIMEY		(SCREENHEIGHT-32)
 
 
 // NET GAME STUFF
-#define NG_STATSY		50
-#define NG_STATSX		(32 + SHORT(star->width)/2 + 32*!dofrags)
+#define NG_STATSY		MENUX+50
+#define NG_STATSX		MENUY+(32 + SHORT(star->width)/2 + 32*!dofrags)
 
 #define NG_SPACINGX    		64
 
@@ -1555,7 +1555,7 @@ void WI_loadData(void)
 
     // background
     bg = W_CacheLumpName(name, PU_CACHE);    
-    V_DrawPatch(0, 0, 1, bg);
+    V_DrawPatch(MENUX, MENUY, 1, bg);
 
 
     // UNUSED unsigned char *pic = screens[1];
