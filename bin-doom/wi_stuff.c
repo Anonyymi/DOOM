@@ -1448,13 +1448,13 @@ void WI_drawStats(void)
     WI_drawLF();
 
     V_DrawPatch(SP_STATSX, SP_STATSY, FB, kills);
-    WI_drawPercent(SCREENWIDTH - SP_STATSX, SP_STATSY, cnt_kills[0]);
+    WI_drawPercent(SP_STATSX + 160, SP_STATSY, cnt_kills[0]);
 
     V_DrawPatch(SP_STATSX, SP_STATSY+lh, FB, items);
-    WI_drawPercent(SCREENWIDTH - SP_STATSX, SP_STATSY+lh, cnt_items[0]);
+    WI_drawPercent(SP_STATSX + 160, SP_STATSY+lh, cnt_items[0]);
 
     V_DrawPatch(SP_STATSX, SP_STATSY+2*lh, FB, sp_secret);
-    WI_drawPercent(SCREENWIDTH - SP_STATSX, SP_STATSY+2*lh, cnt_secret[0]);
+    WI_drawPercent(SP_STATSX + 160, SP_STATSY+2*lh, cnt_secret[0]);
 
     V_DrawPatch(SP_TIMEX, SP_TIMEY, FB, time);
     WI_drawTime(SCREENWIDTH/2 - SP_TIMEX, SP_TIMEY, cnt_time);
