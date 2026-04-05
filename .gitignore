@@ -1,4 +1,5 @@
 .vscode/
 .cache/
+build/
 resources/
 !resources/iwad/doom1.wad
