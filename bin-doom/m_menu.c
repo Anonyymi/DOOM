@@ -1160,7 +1160,7 @@ void M_SizeDisplay(int choice)
 	}
 	break;
       case 1:
-	if (screenSize < (SCREENWIDTH / 32) - 2)
+	if (screenSize < (SCREENWIDTH / BLOCKSIZE) - 2)
 	{
 	    screenblocks++;
 	    screenSize++;
