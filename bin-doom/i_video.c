@@ -4,6 +4,7 @@
 #include <SDL2/SDL_keycode.h>
 #include <SDL2/SDL_mouse.h>
 #include <SDL2/SDL_video.h>
+#include <SDL_render.h>
 #include <stdint.h>
 #include "d_event.h"
 #include "doomdef.h"
@@ -44,6 +45,8 @@ void I_InitGraphics(void)
     {
         I_Error("error creating SDL_Renderer");
     }
+
+    SDL_RenderSetLogicalSize(renderer, SCREENWIDTH, SCREENHEIGHT);
 
     texture = SDL_CreateTexture(
         renderer,
